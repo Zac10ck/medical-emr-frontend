@@ -70,3 +70,29 @@
 .pagination button.active {
   background-color: #0056b3;
 }
+/* Basic styling for the modal */
+.ReactModal__Overlay {
+  background-color: rgba(0, 0, 0, 0.75);
+}
+
+.ReactModal__Content {
+  top: 50%;
+  left: 50%;
+  right: auto;
+  bottom: auto;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  border-radius: 8px;
+  width: 400px;
+}
+
+.ReactModal__Content button {
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #13c75b;
+  color: rgb(160, 39, 39);
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}

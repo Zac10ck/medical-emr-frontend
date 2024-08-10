@@ -1,18 +1,29 @@
 import React, { useState } from 'react';
+import RecordModal from './RecordModal';
 
 const RecordList = ({ records }) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const recordsPerPage = 10;
+  const [selectedRecord, setSelectedRecord] = useState(null);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
 
-  // Calculate the records to display on the current page
+  const recordsPerPage = 10;
   const indexOfLastRecord = currentPage * recordsPerPage;
   const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
   const currentRecords = records.slice(indexOfFirstRecord, indexOfLastRecord);
 
-  // Handle page change
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   const totalPages = Math.ceil(records.length / recordsPerPage);
+
+  const openModal = (record) => {
+    setSelectedRecord(record);
+    setModalIsOpen(true);
+  };
+
+  const closeModal = () => {
+    setSelectedRecord(null);
+    setModalIsOpen(false);
+  };
 
   return (
     <div>
@@ -21,6 +32,7 @@ const RecordList = ({ records }) => {
         {currentRecords.map((record) => (
           <li key={record.id}>
             {record.patient_name} - {record.diagnosis} - {record.date_of_visit}
+            <button onClick={() => openModal(record)}>View Details</button>
           </li>
         ))}
       </ul>
@@ -35,6 +47,11 @@ const RecordList = ({ records }) => {
           </button>
         ))}
       </div>
+      <RecordModal
+        isOpen={modalIsOpen}
+        onRequestClose={closeModal}
+        record={selectedRecord}
+      />
     </div>
   );
 };
