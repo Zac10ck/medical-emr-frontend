@@ -9,6 +9,8 @@ const Dashboard = () => {
     totalVisits: 0,
     // Add other totals as needed
   });
+  const [searchTerm, setSearchTerm] = useState('');
+  const [filterTerm, setFilterTerm] = useState('');
 
   const fetchRecords = async () => {
     try {
@@ -31,6 +33,14 @@ const Dashboard = () => {
     fetchRecords();
   }, []);
 
+  const handleSearch = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
+  const handleFilter = (e) => {
+    setFilterTerm(e.target.value);
+  };
+
   return (
     <div>
       <h1>Medical EMR Dashboard</h1>
@@ -45,7 +55,21 @@ const Dashboard = () => {
         </div>
         {/* Add more cards as needed */}
       </div>
-      <RecordList records={records} fetchRecords={fetchRecords} />
+      <div className="search-filter">
+        <input
+          type="text"
+          placeholder="Search by name"
+          value={searchTerm}
+          onChange={handleSearch}
+        />
+        <select value={filterTerm} onChange={handleFilter}>
+          <option value="">Filter by diagnosis</option>
+          <option value="diabetes">Diabetes</option>
+          <option value="hypertension">Hypertension</option>
+          {/* Add more filter options as needed */}
+        </select>
+      </div>
+      <RecordList records={records} searchTerm={searchTerm} filterTerm={filterTerm} />
     </div>
   );
 };
