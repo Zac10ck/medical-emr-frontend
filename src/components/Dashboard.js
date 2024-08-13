@@ -14,7 +14,7 @@ const Dashboard = () => {
 
   const fetchRecords = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/api/records');
+      const response = await axios.get('http://api.medascloud.com:3000/api/records/');
       setRecords(response.data);
       calculateTotals(response.data);
     } catch (error) {
